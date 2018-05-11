@@ -1,9 +1,9 @@
-# Room response estimation experiments
+# Violin system identification estimation experiments
 
-This files are results of my experiments in room response estimation. I used method described in
-[Simultaneous measurement of impulse response and
-distortion with a swept-sine technique](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.33.1614&rep=rep1&type=pdf) by Angelo Farina.
+The general idea here is to create a nonlinear acoustic model of a violin with an attached voice-coil exciter. 
 
-Run evaluation.py in order to see how it works.
+I am starting with a room-response technique of Farina, which was implemented by @baranovmv. I hope to add a binary stochastic method of determining the impulse response as opposed to the  swept-sine technique described in Farina's work.
 
-If I have spare time, I'll add script to actually measure the Room Response.
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.33.1614&rep=rep1&type=pdf) by Angelo Farina
+
+![alt text](https://github.com/deganii/ViolinResponse/violin-synth.png "Experimental Setup")
