@@ -6,4 +6,4 @@ I am starting with a room-response technique of Farina, which was implemented by
 
 http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.33.1614&rep=rep1&type=pdf) by Angelo Farina
 
-![alt text](https://github.com/deganii/ViolinResponse/violin-synth.png "Experimental Setup")
+![alt text](https://github.com/deganii/ViolinResponse/blob/master/violin-synth.jpg "Experimental Setup")
