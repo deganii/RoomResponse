@@ -9,7 +9,7 @@ import math
 import subprocess
 import wavio
 import sys
-import sounddevice as sd
+# import sounddevice as sd
 from optparse import OptionParser
 
 import signal_env
@@ -27,6 +27,9 @@ def Spectrum(s):
 if __name__ == "__main__":
 
     parser = OptionParser()
+    parser.add_option("-m", "--measure-only", action="store_true",
+                      dest="measure_only", default=False,
+                      help="Measure without computing the deconvolution.")
     parser.add_option( "-r", "--reuse", action="store", 
                         type="string", dest="reuse_wav",
                         help="Use wav file with previous record instead actual playing and recording.")
@@ -56,20 +59,24 @@ if __name__ == "__main__":
 
         # Play it and record microphones input simultaneously.
         reccommand = \
-            "rec -q --clobber -r 44100 -b 16 -D -c 2 record_sweep.wav trim 0 10".split(" ")
+            "arecord -D plughw:1,0 -d 15 -f S16_LE -c2 -r44100 record_sweep.wav".split(" ")
+            # "rec -q --clobber -r 44100 -b 16 -D -c 2 record_sweep.wav trim 0 10".split(" ")
         prec = subprocess.Popen(reccommand)
 
         playcommand = \
-            "play -q test_sweep.wav".split(" ")
+            "mplayer -volume 1 -really-quiet test_sweep.wav".split(" ")
         pplay = subprocess.Popen(playcommand)
         pplay.wait()
         prec.wait()
 
         ir_file = "record_sweep.wav"
 
+    if options.measure_only:
+        sys.exit(0)
 
     # Get the result of measurement from wav file.
     ir_fl = wavio.read( ir_file )
+    # scale between -1 and 1, remove 2nd channel
     ir = ir_fl.data[0:,0]/math.pow(2.0, ir_fl.sampwidth*8-1)
 
     # Restore Room Response from the raw signal.
@@ -77,15 +84,19 @@ if __name__ == "__main__":
 
     # Derive inverted room response for active room correction.
     Hi = fft(room_response)
-    lmbd = 1e-2
+    lmbd = 1e-2 # power spectral density of noise
     # Perform Weiner deconvolution.
     inv_room_response = np.real(ifft(np.conj(Hi)/(Hi*np.conj(Hi) + lmbd**2)))
     inv_room_response /= np.max(np.abs(inv_room_response))
 
     deconvolved_ir = fftconvolve(room_response, inv_room_response)
     deconvolved_sweep = fftconvolve(ir, inv_room_response)
+    # save the deconvolved sweep
+    deconvolved_wav = deconvolved_sweep * math.pow(2.0, ir_fl.sampwidth * 8 - 1)
+    deconvolved_wav_16 = deconvolved_wav.astype(np.int16)
+    wavio.write("deconvolved_sweep.wav", deconvolved_wav_16, 44100, sampwidth=2)
 #######################################################################################################################
-
+    plt.rcParams["figure.figsize"] = (6.4 * 2, 4.8 * 2)
     plt.subplot(321)
     plt.plot(room_response)
     plt.legend(["Measured Room Response"])
@@ -130,4 +141,6 @@ if __name__ == "__main__":
     plt.xlim([10, 2e4])
     plt.grid()
 
-    plt.show()
+    # plt.show()
+    plt.savefig('measure_plt.png')
+    # plt.close(fig)
