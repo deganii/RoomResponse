@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6cbddf3-f622-44c4-a358-91838af154e8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/linear_model.py" afterPath="$PROJECT_DIR$/linear_model.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/measure.py" afterPath="$PROJECT_DIR$/measure.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/minimizing_experiments.ipynb" afterPath="$PROJECT_DIR$/minimizing_experiments.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -437,6 +433,14 @@
       <option name="presentableId" value="Default" />
       <updated>1525576168644</updated>
     </task>
+    <task id="LOCAL-00001" summary="begin work on linear classifier">
+      <created>1526680541637</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1526680541637</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -470,6 +474,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="begin work on linear classifier" />
+    <option name="LAST_COMMIT_MESSAGE" value="begin work on linear classifier" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
