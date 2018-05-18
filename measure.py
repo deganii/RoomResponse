@@ -59,9 +59,11 @@ if __name__ == "__main__":
 
         # Play it and record microphones input simultaneously.
         reccommand = \
-            "arecord -D plughw:1,0 -d 15 -f S16_LE -c2 -r44100 record_sweep.wav".split(" ")
+            "arecord -D plughw:1,0 -d {0} -f S16_LE -c2 -r44100 record_sweep.wav".format(
+                int(options.duration + 5)).split(" ")
             # "rec -q --clobber -r 44100 -b 16 -D -c 2 record_sweep.wav trim 0 10".split(" ")
         prec = subprocess.Popen(reccommand)
+        print(reccommand)
 
         playcommand = \
             "mplayer -volume 1 -really-quiet test_sweep.wav".split(" ")
